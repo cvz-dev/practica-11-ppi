@@ -40,6 +40,7 @@
                 <th>Autor</th>
                 <th>Título</th>
                 <th>Fecha de publicación</th>
+                <th>Portada</th>
             </tr>
             <?php
                 $con = mysqli_connect("db", "root", "root_password", "libreria");
@@ -48,15 +49,16 @@
                     echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 }
 
-                $sql = "SELECT id, autor, titulo, fecha_publicacion FROM libros;";
+                $sql = "SELECT id, autor, titulo, fecha_publicacion, portada FROM libros;";
                 $resultado = mysqli_query($con, $sql);
 
                 while ($row = mysqli_fetch_array($resultado)) {
                     echo "<tr>";
                     echo "<td>" . $row['id'] . "</td>";
-                    echo "<td>" . $row['autor'] . "</td>";
-                    echo "<td>" . $row['titulo'] . "</td>";
+                    echo "<td>" . htmlspecialchars($row['autor']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['titulo']) . "</td>";
                     echo "<td>" . $row['fecha_publicacion'] . "</td>";
+                    echo "<td><img src='data:image/jpeg;base64," . base64_encode($row['portada']) . "' width='100'></td>";
                     echo "</tr>";
                 }
 
