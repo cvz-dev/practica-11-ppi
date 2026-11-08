@@ -45,9 +45,10 @@
                 $autor = mysqli_real_escape_string($con, $_POST["autor"]);
                 $titulo = mysqli_real_escape_string($con, $_POST["titulo"]);
                 $fecha = mysqli_real_escape_string($con, $_POST["fecha"]);
+                $portada = mysqli_real_escape_string($con, file_get_contents($_FILES["portada"]["tmp_name"]));
 
-                $sql = "INSERT INTO libros (autor, titulo, fecha_publicacion)
-                    VALUES ('$autor', '$titulo', '$fecha');";
+                $sql = "INSERT INTO libros (autor, titulo, fecha_publicacion, portada)
+                    VALUES ('$autor', '$titulo', '$fecha', '$portada');";
 
                 if (!mysqli_query($con, $sql)) {
                     echo "<p>Error: " . mysqli_error($con) . "</p>";
@@ -59,7 +60,7 @@
             }
         ?>
 
-        <form action="registro.php" method="post">
+        <form action="registro.php" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="autor" class="form-label">Autor:</label>
                 <input type="text" class="form-control" id="autor" name="autor" required>
@@ -71,6 +72,10 @@
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha de publicación:</label>
                 <input type="date" class="form-control" id="fecha" name="fecha" required>
+            </div>
+            <div class="mb-3">
+                <label for="portada" class="form-label">Imagen de portada:</label>
+                <input type="file" id="portada" name="portada" required>
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>

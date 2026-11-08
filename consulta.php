@@ -33,6 +33,36 @@
 
     <main class="container mt-4">
         <h1>Consulta de libros</h1>
+
+        <table class="table">
+            <tr>
+                <th>id</th>
+                <th>Autor</th>
+                <th>Título</th>
+                <th>Fecha de publicación</th>
+            </tr>
+            <?php
+                $con = mysqli_connect("db", "root", "root_password", "libreria");
+
+                if (mysqli_connect_errno()) {
+                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                }
+
+                $sql = "SELECT id, autor, titulo, fecha_publicacion FROM libros;";
+                $resultado = mysqli_query($con, $sql);
+
+                while ($row = mysqli_fetch_array($resultado)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['id'] . "</td>";
+                    echo "<td>" . $row['autor'] . "</td>";
+                    echo "<td>" . $row['titulo'] . "</td>";
+                    echo "<td>" . $row['fecha_publicacion'] . "</td>";
+                    echo "</tr>";
+                }
+
+                mysqli_close($con);
+            ?>
+        </table>
     </main>
 </body>
 </html>
