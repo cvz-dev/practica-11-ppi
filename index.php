@@ -32,7 +32,10 @@
     </nav>
 
     <main class="container mt-4">
-        <h1>Librería</h1>
+        <h1>Bienvenido a la Librería</h1>
+        <p>Sistema para registrar libros y consultar los que ya están guardados.</p>
+        <a class="btn btn-primary" href="registro.php">Registrar un libro</a>
+        <a class="btn btn-secondary" href="consulta.php">Consultar libros</a>
     </main>
 </body>
 </html>
