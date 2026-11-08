@@ -34,6 +34,31 @@
     <main class="container mt-4">
         <h1>Registro de libros</h1>
 
+        <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $con = mysqli_connect("db", "root", "root_password", "libreria");
+
+                if (mysqli_connect_errno()) {
+                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                }
+
+                $autor = mysqli_real_escape_string($con, $_POST["autor"]);
+                $titulo = mysqli_real_escape_string($con, $_POST["titulo"]);
+                $fecha = mysqli_real_escape_string($con, $_POST["fecha"]);
+
+                $sql = "INSERT INTO libros (autor, titulo, fecha_publicacion)
+                    VALUES ('$autor', '$titulo', '$fecha');";
+
+                if (!mysqli_query($con, $sql)) {
+                    echo "<p>Error: " . mysqli_error($con) . "</p>";
+                } else {
+                    echo "<p>El libro se ha registrado correctamente.</p>";
+                }
+
+                mysqli_close($con);
+            }
+        ?>
+
         <form action="registro.php" method="post">
             <div class="mb-3">
                 <label for="autor" class="form-label">Autor:</label>
